@@ -25,5 +25,8 @@ namespace labnet.Controllers
             
             return View(_jobOffers);
         }
-    }
+        public IActionResult Details(int id)
+        {
+            return View();
+        }
 }
