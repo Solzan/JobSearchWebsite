@@ -22,11 +22,13 @@ namespace labnet.Controllers
         [Route("joboffer/index")]
         public IActionResult Index()
         {
-            
+
             return View(_jobOffers);
         }
         public IActionResult Details(int id)
         {
-            return View();
+            var offer = _jobOffers.FirstOrDefault(k => k.Id == id);
+            return View(offer);
         }
+    }
 }

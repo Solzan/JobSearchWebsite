@@ -6,7 +6,7 @@
 
 <h2>Job Offer list</h2>
 <ul>
-    @foreach (var offer in Model.OrderBy(o => o.JobTitle))
+    @foreach (var offer in Model)
     {
         <li>@Html.ActionLink(offer.JobTitle, "Details", new { id = offer.Id })</li>
     }
