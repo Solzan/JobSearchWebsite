@@ -9,5 +9,10 @@ namespace labnet.Models
     {
         public int Id { get; set; }
         public string JobTitle { get; set; }
+        public string JobDescription { set; get; }
+        public string RequiredSkils { set; get; }
+        public DateTime StartDate { set; get; }
+        public int Salary { get; set; }
+        public string Location { get; set; }
     }
 }
