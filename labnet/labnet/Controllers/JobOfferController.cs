@@ -10,14 +10,19 @@ namespace labnet.Controllers
     public class JobOfferController : Controller
     {
 
+       
+
+
         private static List<JobOffer> _jobOffers = new List<JobOffer>
         {
             new JobOffer{Id=1, JobTitle= "Backend Developer", JobDescription="We are looking for Backend Java Developer",
-                RequiredSkils ="2+ years of development experience using Java, HTML, and JavaScript", Salary=16000, StartDate=new DateTime(2020,6,6), Location="Warszaw,Poland" },
+                SalaryFrom=16000, SalaryTo=20000, StartDate=new DateTime(2020,6,6), EndDate=new DateTime(2020,7,6),Location="Warszaw,Poland" },
             new JobOffer{Id=2, JobTitle= "Frontend Developer",JobDescription="We are looking to hire a Front End Developer  with Angular 2+ to help build out the web and mobile apps.",
-                 RequiredSkils="JS framework experience (Angular 2+, React, Vue, etc.)",  Salary=12000, StartDate=new DateTime(2020,6,6), Location="Prague,Czech"},
-            new JobOffer{Id=3, JobTitle= "Manager", JobDescription="We are looking for Mannager", RequiredSkils="1+ years experirnce",Salary=16000, StartDate=new DateTime(2020,6,6), Location="Paris,France"  },
-            new JobOffer{Id=4, JobTitle= "Cook",JobDescription="We are looking for Cook", RequiredSkils="1+ years experirnce", Salary=16000, StartDate=new DateTime(2020,6,6), Location="Moscow,Russia" }
+                SalaryFrom=12000, SalaryTo=20000, StartDate=new DateTime(2020,6,6), EndDate=new DateTime(2020,6,7),Location="Prague,Czech"},
+            new JobOffer{Id=3, JobTitle= "Manager", JobDescription="We are looking for Mannager",SalaryFrom=16000,SalaryTo=18000,
+                StartDate =new DateTime(2020,6,6), EndDate =new DateTime(2020,6,7), Location="Paris,France"  },
+            new JobOffer{Id=4, JobTitle= "Cook",JobDescription="We are looking for Cook",  SalaryFrom=16000, SalaryTo=18000,
+                StartDate =new DateTime(2020,6,6), EndDate =new DateTime(2020,6,7), Location="Moscow,Russia" }
         };
 
 
@@ -30,6 +35,7 @@ namespace labnet.Controllers
         public IActionResult Details(int id)
         {
             var offer = _jobOffers.FirstOrDefault(k => k.Id == id);
+            var appList= 
             return View(offer);
         }
     }
