@@ -1,0 +1,139 @@
+﻿@model Tuple<labnet.Models.JobOffer, List < labnet.Models.JobApplication >>
+
+
+@{
+            ViewData["Title"] = "Details";
+        }
+
+<h2>Details</h2>
+
+
+<div>
+    <h4>@Html.DisplayFor(model => model.Item1.JobTitle)</h4>
+    <hr />
+
+
+    <table cellspacing="0" cellpadding="5">
+        <tr>
+            <td valign="top">
+                @Html.DisplayFor(model => model.Item1.JobDescription)
+            </td>
+            <td valign="top">
+                <dl class="dl-horizontal">
+                    <dt>
+                        Company
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Item1.Company)
+                    </dd>
+                    <dt>
+                        SalaryFrom
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Item1.SalaryFrom)
+                    </dd>
+                    <dt>
+                        SalaryTo
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Item1.SalaryTo)
+                    </dd>
+                    <dt>
+                        StartDate
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Item1.StartDate)
+                    </dd>
+                    <dt>
+                        EndDate
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Item1.EndDate)
+                    </dd>
+                    <dt>
+                        Location
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Item1.Location)
+                    </dd>
+                </dl>
+
+                <div>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Apply", "Create", "JobApplications", new { i = Model.Item1.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Delete", "Delete", new { id = Model.Item1.Id }, new { @class = "btn btn-primary" })
+
+                </div>
+
+
+            </td>
+        </tr>
+    </table>
+
+</div>
+<div>
+    @Html.ActionLink("Back", "Index", new { id = Model.Item1.Id }, new { @class = "btn btn-primary" })
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            @if(Model.Item2.Count>0)
+            {
+            <th>
+                @Html.DisplayNameFor(model => model.Item2[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item2[0].FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item2[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item2[0].PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item2[0].EmailAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item2[0].ContactAgreement)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item2[0].CvUrl)
+            </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Item2)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContactAgreement)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CvUrl)
+                </td>
+
+
+            </tr>
+        }
+      </tbody>
+
+</table>
+
+
+

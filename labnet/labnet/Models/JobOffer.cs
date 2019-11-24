@@ -15,6 +15,7 @@ namespace labnet.Models
         public int SalaryFrom { get; set; }
         public int SalaryTo { get; set; }
         public string Location { get; set; }
+        public string Company { get; set; }
         public List<JobApplication> JobApplications { get; set; } = new List<JobApplication>();
     }
 }

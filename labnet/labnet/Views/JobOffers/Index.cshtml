@@ -1,13 +1,21 @@
-﻿@model List<JobOffer>
+﻿@model IEnumerable<labnet.Models.JobOffer>
+{
+
 
 @{
     ViewData["Title"] = "Job Offer list";
 }
 
 <h2>Job Offer list</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
 <ul>
     @foreach (var offer in Model)
     {
         <li>@Html.ActionLink(offer.JobTitle, "Details", new { id = offer.Id })</li>
     }
 </ul>
+
