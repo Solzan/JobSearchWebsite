@@ -4,6 +4,9 @@
 @{
             ViewData["Title"] = "Details";
         }
+<head>
+    <script src="https://kit.fontawesome.com/0d382db8a4.js" crossorigin="anonymous"></script>
+</head>
 
 <h2>Details</h2>
 
@@ -42,13 +45,15 @@
                         StartDate
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.Item1.StartDate)
+                        @*@Html.DisplayFor(model => model.Item1.StartDate.Date)*@
+                        @Convert.ToDateTime(Model.Item1.StartDate).ToString("dd.MM.yyy")
                     </dd>
                     <dt>
                         EndDate
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.Item1.EndDate)
+                        @*@Html.DisplayFor(model => model.Item1.EndDate)*@
+                        @Convert.ToDateTime(Model.Item1.EndDate).ToString("dd.MM.yyy")
                     </dd>
                     <dt>
                         Location
@@ -59,9 +64,22 @@
                 </dl>
 
                 <div>
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.Id }, new { @class = "btn btn-primary" })
+                    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Item1.Id }, new { @class = "btn btn-primary" })*@
+                    <a asp-action="Edit" asp-route-id="@Model.Item1.Id">
+                        <button class="btn btn-rounded btn-primary mx-2">
+                            <i class="fas fa-edit pr-2"></i>
+                            Editttt
+                        </button>
+                    </a>
                     @Html.ActionLink("Apply", "Create", "JobApplications", new { i = Model.Item1.Id }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Delete", "Delete", new { id = Model.Item1.Id }, new { @class = "btn btn-primary" })
+                    @*@Html.ActionLink("Delete", "Delete", new { id = Model.Item1.Id }, new { @class = "btn btn-primary" })*@
+
+                    <button class="btn btn-rounded btn-danger mx-2"
+                            data-toggle="modal"
+                            data-target="#confirm-delete">
+                        <i class="fas fa-trash-alt pr-2"></i>
+                        Delete
+                    </button>
 
                 </div>
 
@@ -70,6 +88,36 @@
         </tr>
     </table>
 
+</div>
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Employee</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="font-weight-bold mb-0">Are you sure you want to delete this?</p>
+                <p class="text-danger mb-0"><small>This action cannot be undone.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-rounded" data-dismiss="modal">
+                    <i class="fas fa-chevron-left pr-2"></i>
+                    Cancel
+                </button>
+                @using (Html.BeginForm("Delete", "JobOffers", new { Model.Item1.Id }, FormMethod.Post, null, new { style = "display:inline;" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-rounded btn-danger">
+                        <i class="fas fa-trash-alt pr-2"></i>
+                        Delete
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
 </div>
 <div>
     @Html.ActionLink("Back", "Index", new { id = Model.Item1.Id }, new { @class = "btn btn-primary" })
@@ -81,9 +129,6 @@
         <tr>
             @if(Model.Item2.Count>0)
             {
-            <th>
-                @Html.DisplayNameFor(model => model.Item2[0].LastName)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Item2[0].FirstName)
             </th>

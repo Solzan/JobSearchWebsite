@@ -2,7 +2,111 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+
+<div>
+
+    <h2>Search by ID</h2>
+    <input type="text" id="prodId" size="5" />
+    <input type="button" value="Search" onclick="find();" />
+    <p />
+    <a href="@Url.Action("Create", "JobOffers")">
+        <button class="btn btn-rounded btn-outline-primary"
+                data-toggle="modal">
+            <i class="fa fa-plus pr-3"></i>
+            Add Job Offer
+        </button>
+    </a>
+    <table class="table table-striped table-hover" id="mytable">
+        <thead>
+            <tr>
+
+                <th scope="col">Job Title</th>
+                <th scope="col">Company</th>
+                <th scope="col">Location</th>
+                <th scope="col">StartDate</th>
+                <th style="width: 20px"></th>
+            </tr>
+        </thead>
+        <tbody id="jobs">
+
+            @*@foreach (var offer in Model)
+                {
+                    <tr>
+
+                        <td>@offer.JobTitle</td>
+                        <td>@offer.Company</td>
+                        <td>@offer.Location</td>
+                        <td>@offer.StartDate.ToShortDateString()</td>
+                        <td>
+                            <a href="@Url.Action("Edit", "JobOffers", new { id = offer.Id })"
+                               class="text-primary">
+                                <i class="fas fa-edit"
+                                   title="Edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }*@
+        </tbody>
+    </table>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script>
+        var uri = 'api/Job';
+
+        $(document).ready(function () {
+            // Send an AJAX request
+            loadAllData();
+            //$(document).on("click", "#jobs tr", function () {
+            //    //some think
+            //    alert("You clicked my <td>!" + $(this).html() +
+            //        "My TR is:" + $(this).parent("tr").html());
+            //});
+            //$(".tbody td").click(function () {
+            //    alert("You clicked my <td>!" + $(this).html() +
+            //        "My TR is:" + $(this).parent("tr").html());
+            //    //get <td> element values here!!??
+            //});
+        })
+
+        function loadAllData() {
+            $.getJSON(uri)
+                .done(function (data) {
+                    // On success, 'data' contains a list of products.
+                    $.each(data, function (key, item) {
+                        $("#jobs").append(formatItem(item));
+                    });
+                });
+            return;
+        }
+
+
+        function formatItem(item) {
+
+            var d = new Date(item.startDate);
+            return "<tr><td><a href=\"/JobOffers/Details?id=" + item.id + "\">" + item.jobTitle + "</a></td><td>" + item.company + "</td><td>" + item.location + "</td><td>" + d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear() + "</td></tr>"
+        }
+
+        function find() {
+            $('#jobs').empty()
+
+            var id = $('#prodId').val();
+            if (id === "") {
+                loadAllData();
+            }
+            $.getJSON(uri + '/' + id)
+                .done(function (data) {
+                    var d = new Date(data.startDate);
+                    //$('#jobs').text(formatItem(data));
+                    $("#jobs").append(formatItem(data));
+                })
+                .fail(function (jqXHR, textStatus, err) {
+                    $('#jobs').text('Error: ' + err);
+                });
+        }
+    </script>
+
+</div>
+
+@*<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -91,4 +195,4 @@
             <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
         </ul>
     </div>
-</div>
+</div>*@

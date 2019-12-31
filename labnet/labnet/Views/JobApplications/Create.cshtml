@@ -8,15 +8,10 @@
 
 <h4>JobApplication</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row page-box">
+    <div class="col-sm-12">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="OfferId" class="control-label"></label>
-                <input asp-for="OfferId" class="form-control" />
-                <span asp-validation-for="OfferId" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />

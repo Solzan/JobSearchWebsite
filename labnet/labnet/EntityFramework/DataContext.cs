@@ -13,5 +13,6 @@ namespace labnet.EntityFramework
         public DbSet<JobApplication> JobApplications { get; set; }
         public DbSet<JobOffer> JobOfers { get; set; }
         public DbSet<Company> Companies { get; set; }
+        
     }
 }

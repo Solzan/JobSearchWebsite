@@ -20,6 +20,7 @@ namespace labnet.Controllers
             _context = context;
         }
 
+
         // GET: JobOffers
         public async Task<IActionResult> Index()
         {
@@ -63,16 +64,17 @@ namespace labnet.Controllers
 
             return View(model);
         }
-
+        [Route("JobOffers/Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(JobOfferCreateView model)
+        public async Task<ActionResult> Create([Bind("Company,JobDescription,JobTitle, Location, SalaryFrom,SalaryTo, EndDate")] JobOfferCreateView model)
         {
             if (!ModelState.IsValid)
             {
                 model.Companies = await _context.Companies.ToListAsync();
                 return View(model);
             }
+            
 
             JobOffer jo = new JobOffer
             {
@@ -85,10 +87,11 @@ namespace labnet.Controllers
                 EndDate = model.EndDate,
                 StartDate = DateTime.Now
             };
+           
+                await _context.JobOfers.AddAsync(jo);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
 
-            await _context.JobOfers.AddAsync(jo);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
         }
 
         // GET: JobOffers/Edit/5
@@ -175,5 +178,7 @@ namespace labnet.Controllers
         {
             return _context.JobOfers.Any(e => e.Id == id);
         }
+
+      
     }
 }
