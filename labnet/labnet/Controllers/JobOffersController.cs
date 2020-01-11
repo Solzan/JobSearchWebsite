@@ -179,6 +179,12 @@ namespace labnet.Controllers
             return _context.JobOfers.Any(e => e.Id == id);
         }
 
-      
+
+        public ActionResult Partial()
+        {
+            ViewBag.Message = "Это частичное представление.";
+            return PartialView();
+        }
+
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using labnet.EntityFramework;
 using Microsoft.AspNetCore.Mvc;
 using labnet.Models;
+using labnet.EntityFramework;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,13 +15,13 @@ namespace labnet.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class Job : ControllerBase
+    public class Application : Controller
     {
         private readonly DataContext _context;
         /// <summary>
         /// 
         /// </summary>
-        public Job(DataContext context)
+        public Application(DataContext context)
         {
             _context = context;
         }
@@ -29,29 +29,30 @@ namespace labnet.Controllers
 
         // GET: api/<controller>
         /// <summary>
-        /// Get all Jobs from the DB
+        /// Get all Applications from the DB
         /// </summary>
         /// <returns>All elements will be returned</returns>
         [HttpGet]
-        public IEnumerable<JobOffer> Get()
+        public IEnumerable<JobApplication> Get()
         {
-            return _context.JobOfers.ToList();
+            return _context.JobApplications.ToList();
         }
 
 
         // GET api/<controller>/5
         /// <summary>
-        /// Get one jobOffer
+        /// Get one Application
         /// </summary>
         /// <remarks>Sample remarks for get one element</remarks>
         /// <param name="id">Id of the element</param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public JobOffer Get(int id)
+        public JobApplication Get(int id)
         {
-            
-            return  _context.JobOfers.FirstOrDefault(m => m.Id == id);
+
+            return _context.JobApplications.FirstOrDefault(m => m.Id == id);
         }
+
 
         // POST api/<controller>
         /// <summary>
@@ -62,7 +63,7 @@ namespace labnet.Controllers
         {
         }
 
-        // PUT api/<controller>/
+        // PUT api/<controller>/5
         /// <summary>
         /// 
         /// </summary>

@@ -11,6 +11,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using labnet.EntityFramework;
+using Swashbuckle.AspNetCore.Swagger;
+using System.Reflection;
+using System.IO;
 
 namespace labnet
 {
@@ -37,11 +40,32 @@ namespace labnet
 			services.AddDbContext<DataContext>(options => options.UseSqlServer(connection));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Title = "labnet",
+                    Version = "v1",
+                    Description = "Swagger example",
+                    Contact = new Contact
+                    {
+                        Name = "Zhanna Solobchuk",
+                        Email = "solobchuk.zhanna@gmail.com"
+                    }
+                });
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -51,6 +75,19 @@ namespace labnet
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+
+            //Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+         
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "labnet API v1");
+            });
+
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -62,6 +99,10 @@ namespace labnet
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+        
+
+
         }
     }
 }
