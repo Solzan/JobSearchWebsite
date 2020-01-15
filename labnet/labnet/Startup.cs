@@ -14,6 +14,9 @@ using labnet.EntityFramework;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Reflection;
 using System.IO;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.AzureADB2C.UI;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace labnet
 {
@@ -35,6 +38,8 @@ namespace labnet
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            services.AddAuthentication(AzureADB2CDefaults.AuthenticationScheme)
+              .AddAzureADB2C(options => Configuration.Bind("AzureAdB2C", options));
 
             var connection = Configuration["DatabaseConnectionString"];
 			services.AddDbContext<DataContext>(options => options.UseSqlServer(connection));
@@ -86,6 +91,7 @@ namespace labnet
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "labnet API v1");
+                
             });
 
 
@@ -93,6 +99,8 @@ namespace labnet
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            app.UseAuthentication();
+           
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -104,5 +112,29 @@ namespace labnet
 
 
         }
-    }
+
+        //public class AuthorizationHeaderParameterOperationFilter : IOperationFilter
+        //{
+        //    public void Apply(Operation operation, OperationFilterContext context)
+        //    {
+        //        var filterPipeline = context.ApiDescription.ActionDescriptor.FilterDescriptors;
+        //        var isAuthorized = filterPipeline.Select(filterInfo => filterInfo.Filter).Any(filter => filter is AuthorizeFilter);
+        //        var allowAnonymous = filterPipeline.Select(filterInfo => filterInfo.Filter).Any(filter => filter is IAllowAnonymousFilter);
+
+        //        if (isAuthorized && !allowAnonymous)
+        //        {
+        //            if (operation.Parameters == null)
+        //                operation.Parameters = new List<IParameter>();
+
+        //            operation.Parameters.Add(new NonBodyParameter
+        //            {
+        //                Name = "Authorization",
+        //                In = "header",
+        //                Description = "access token",
+        //                Required = true,
+        //                Type = "string"
+        //            });
+        //        }
+        //    }
+        }
 }

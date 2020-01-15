@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using labnet.EntityFramework;
 using labnet.Models;
 using System.Dynamic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace labnet.Controllers
 {
@@ -22,12 +23,14 @@ namespace labnet.Controllers
 
 
         // GET: JobOffers
+        //[Authorize]
         public async Task<IActionResult> Index()
         {
             return View(await _context.JobOfers.ToListAsync());
         }
 
         // GET: JobOffers/Details/5
+   
         [Route("JobOffers/Details")]
         public async Task<IActionResult> Details(int? id)
         {
@@ -54,6 +57,7 @@ namespace labnet.Controllers
             Tuple<JobOffer,List<JobApplication>> a = new Tuple<JobOffer,List<JobApplication>>(jobOffer, jobApp);
             return View(a);
         }
+        [Authorize]
         [Route("JobOffers/Create")]
         public async Task<ActionResult> Create()
         {
@@ -64,16 +68,32 @@ namespace labnet.Controllers
 
             return View(model);
         }
+        [Authorize]
         [Route("JobOffers/Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind("Company,JobDescription,JobTitle, Location, SalaryFrom,SalaryTo, EndDate")] JobOfferCreateView model)
         {
+            if (DateTime.Compare(model.EndDate.Value, DateTime.Now) < 0)
+            {
+                ModelState.AddModelError("End Date", "Date has already passed");
+                model.Companies = await _context.Companies.ToListAsync();
+                return View(model);
+            }
+            if (model.SalaryFrom.Value > model.SalaryTo.Value)
+            {
+                ModelState.AddModelError("SalaryTo", "Salary To value must be greater than Salary From value");
+                model.Companies = await _context.Companies.ToListAsync();
+                return View(model);
+            }
+          
+
             if (!ModelState.IsValid)
             {
                 model.Companies = await _context.Companies.ToListAsync();
                 return View(model);
             }
+           
             
 
             JobOffer jo = new JobOffer
@@ -95,6 +115,7 @@ namespace labnet.Controllers
         }
 
         // GET: JobOffers/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -113,6 +134,7 @@ namespace labnet.Controllers
         // POST: JobOffers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,JobTitle,JobDescription,StartDate,EndDate,SalaryFrom,SalaryTo,Location,Company")] JobOffer jobOffer)
@@ -146,6 +168,7 @@ namespace labnet.Controllers
         }
 
         // GET: JobOffers/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -164,6 +187,7 @@ namespace labnet.Controllers
         }
 
         // POST: JobOffers/Delete/5
+            [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -182,7 +206,7 @@ namespace labnet.Controllers
 
         public ActionResult Partial()
         {
-            ViewBag.Message = "Это частичное представление.";
+            
             return PartialView();
         }
 

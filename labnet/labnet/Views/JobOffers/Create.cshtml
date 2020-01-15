@@ -34,22 +34,23 @@
                 @Html.ValidationMessageFor(m => m.Location, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.SalaryFrom, "Salary")
+                @Html.LabelFor(m => m.SalaryFrom, "Salary From")
                 <div class="input-group">
                     <span class="input-group-addon">PLN</span>
                     @Html.EditorFor(m => m.SalaryFrom, new { htmlAttributes = new { @class = "form-control", placeholder = "From", data_bind = "value: salaryFrom" } })
                     <span class="input-group-addon">.00</span>
                 </div>
-                @Html.ValidationMessageFor(m => m.SalaryFrom, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(m => m.SalaryFrom, " ", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.SalaryTo, "Salary")
+                @Html.LabelFor(m => m.SalaryTo, "Salary To")
                 <div class="input-group">
                     <span class="input-group-addon">PLN</span>
                     @Html.EditorFor(m => m.SalaryTo, new { htmlAttributes = new { @class = "form-control", placeholder = "To", data_bind = "value: salaryTo" } })
                     <span class="input-group-addon">.00</span>
                 </div>
-                @Html.ValidationMessageFor(m => m.SalaryTo, "", new { @class = "text-danger" })
+                @*@Html.ValidationMessageFor(m => m.SalaryTo, "", new { @class = "text-danger" })*@
+                @Html.ValidationMessage("SalaryTo", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.EndDate)
@@ -59,7 +60,7 @@
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
-                @Html.ValidationMessageFor(m => m.EndDate, "", new { @class = "text-danger" })
+                @Html.ValidationMessage("End Date", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.JobDescription)

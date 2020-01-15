@@ -26,8 +26,32 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index"><button class="btn btn-rounded" >Back to List</button></a>
 </div>
+<script>
+    $(document).ready(function () {
+
+        $('#myform').validate({
+            rules: {
+                Name: {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 20
+                }
+
+            },
+            messages: {
+                Name: {
+                     required: "Please, enter company name",
+                     minlength: "Your company name must consist of at least 2 characters"
+                }
+            }
+
+        });
+
+    });
+</script>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

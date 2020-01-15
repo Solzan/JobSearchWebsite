@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using labnet.EntityFramework;
 
 namespace labnet.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200114184355_mynew")]
+    partial class mynew
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,7 +34,7 @@ namespace labnet.Migrations
                     b.ToTable("Companies");
 
                     b.HasData(
-                        new { Id = 1, Name = "Cytrus" },
+                        new { Id = 10, Name = "Cytrus" },
                         new { Id = 9, Name = "samsung" }
                     );
                 });

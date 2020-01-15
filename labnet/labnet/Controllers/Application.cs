@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using labnet.Models;
 using labnet.EntityFramework;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,6 +14,7 @@ namespace labnet.Controllers
     /// <summary>
     /// 
     /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class Application : Controller

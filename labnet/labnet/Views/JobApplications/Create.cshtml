@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 <head>
-     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.10/jquery.validate.unobtrusive.min.js"></script>
 
@@ -29,22 +29,22 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" name="firstNameField" />
+                <input asp-for="FirstName" class="form-control" />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" name="lastNameField" />
+                <input asp-for="LastName" class="form-control" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" name="phoneField" />
+                <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EmailAddress" class="control-label"></label>
-                <input asp-for="EmailAddress" class="form-control" name="emailField" />
+                <input asp-for="EmailAddress" class="form-control" />
                 <span asp-validation-for="EmailAddress" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -59,6 +59,7 @@
                 <input asp-for="CvUrl" class="form-control" />
                 <span asp-validation-for="CvUrl" class="text-danger"></span>
             </div>
+         
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
@@ -70,58 +71,94 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+
+
+
+<script>
+    async function AJAXSubmit(oFormElement) {
+        var resultElement = oFormElement.elements.namedItem("result");
+        const formData = new FormData(oFormElement);
+
+        try {
+            const response = await fetch(oFormElement.action, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                window.location.href = '/';
+            }
+
+            resultElement.value = 'Result: ' + response.status + ' ' +
+                response.statusText;
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+</script>
+
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
-<script>
+@*<script>
     $(document).ready(function () {
 
         $('#myform').validate({
             rules: {
-                firstNameField: {
+                FirstName: {
                     required: true,
                     minlength: 2
                 },
-                lastNameField: {
+                LastName: {
                     required: true,
                     minlength: 2
                 },
-                phoneField:
+                PhoneNumber:
                 {
                     required: true,
                 },
-                emailField:
+                EmailAddress:
                 {
                     required: true,
                     email: true
                 },
-               
+                ContactAgreement:
+                {
+                    required: true,
+
+                }
+
 
             },
             messages: {
-                firstNameField: {
+                FirstName: {
                     required: "Please, enter your first name",
                     minlength: "Your first name must consist of at least 2 characters"
 
                 },
-                lastNameField: {
+                LastName: {
                     required: "Please, enter your last name",
                     minlength: "Your last name must consist of at least 2 characters"
                 },
-                email:
+                EmailAddress:
                 {
                     required: "Please, enter your email address",
                     email: "Please enter a valid email address"
                 },
-                phoneField:
+                PhoneNumber:
                 {
                     required: "Please, enter your phone number"
+                },
+                ContactAgreement:
+                {
+                    required: "Please, agree on contact"
+
                 }
-              
             }
 
         });
 
     });
-</script>
+</script>*@

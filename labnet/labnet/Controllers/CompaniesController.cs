@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using labnet.EntityFramework;
 using labnet.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace labnet.Controllers
 {
+    [Authorize]
     public class CompaniesController : Controller
     {
         private readonly DataContext _context;

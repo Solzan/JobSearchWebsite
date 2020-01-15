@@ -32,12 +32,13 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" name="companyNameField" />
+                <input asp-for="Name" class="form-control" @*name="companyNameField"*@ />
                 <span asp-validation-for="Name" class="text-danger"></span>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+          
         </form>
 
 
@@ -52,7 +53,7 @@
 
         $('#myform').validate({
             rules: {
-                companyNameField: {
+                Name: {
                     required: true,
                     minlength: 2,
                     maxlength: 20
@@ -60,7 +61,7 @@
 
             },
             messages: {
-                companyNameField: {
+                Name: {
                      required: "Please, enter company name",
                      minlength: "Your company name must consist of at least 2 characters"
                 }
