@@ -18,7 +18,7 @@ namespace labnet.EntityFramework
         {
             modelBuilder.Entity<Company>().HasData(
                
-                new Company { Id = 11, Name = "Sharlotta" },
+                
                 new Company { Id = 12, Name = "Google" },
                 new Company { Id = 13, Name = "Netflix"},
                 new Company { Id = 14, Name = "Danone" }

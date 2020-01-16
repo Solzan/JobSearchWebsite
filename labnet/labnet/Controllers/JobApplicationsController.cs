@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace labnet.Controllers
 {
-    [Authorize]
+  //  [Authorize]
     public class JobApplicationsController : Controller
     {
         private readonly DataContext _context;

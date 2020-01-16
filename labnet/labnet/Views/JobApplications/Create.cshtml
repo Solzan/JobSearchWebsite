@@ -54,12 +54,60 @@
                     </label>
                 </div>
             </div>
-            <div class="form-group">
-                <label asp-for="CvUrl" class="control-label"></label>
-                <input asp-for="CvUrl" class="form-control" />
-                <span asp-validation-for="CvUrl" class="text-danger"></span>
-            </div>
-         
+            @*<div class="form-group">
+            <label asp-for="CvUrl" class="control-label"></label>
+            <input asp-for="CvUrl" class="form-control" />
+            <span asp-validation-for="CvUrl" class="text-danger"></span>
+        </div>*@
+            <form action="BufferedSingleFileUploadPhysical/?handler=Upload"
+                  enctype="multipart/form-data" onsubmit="AJAXSubmit(this);return false;"
+                  method="post">
+
+
+                 <label asp-for="CvUrl" class="control-label"></label>
+                 <input asp-for="CvUrl" class="form-control" />
+
+
+                @*<dl>
+                    <dt>
+                        <label for="FileUpload_FormFile">File</label>
+                    </dt>
+                    <dd>
+                        <input id="FileUpload_FormFile" type="file"
+                               name="FileUpload.FormFile" />
+                    </dd>
+                </dl>*@
+
+                <input class="btn" type="submit" value="Upload" />
+
+                <div style="margin-top:15px">
+                    <output name="result"></output>
+                </div>
+            </form>
+
+            <script>
+                async function AJAXSubmit(oFormElement) {
+                    var resultElement = oFormElement.elements.namedItem("result");
+                    const formData = new FormData(oFormElement);
+
+                    try {
+                        const response = await fetch(oFormElement.action, {
+                            method: 'POST',
+                            body: formData
+                        });
+
+                        if (response.ok) {
+                            window.location.href = '/';
+                        }
+
+                        resultElement.value = 'Result: ' + response.status + ' ' +
+                            response.statusText;
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                }
+            </script>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
@@ -102,7 +150,7 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
-@*<script>
+<script>
     $(document).ready(function () {
 
         $('#myform').validate({
@@ -161,4 +209,4 @@
         });
 
     });
-</script>*@
+</script>

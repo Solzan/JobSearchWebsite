@@ -45,24 +45,25 @@ namespace labnet
 			services.AddDbContext<DataContext>(options => options.UseSqlServer(connection));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info
-                {
-                    Title = "labnet",
-                    Version = "v1",
-                    Description = "Swagger example",
-                    Contact = new Contact
-                    {
-                        Name = "Zhanna Solobchuk",
-                        Email = "solobchuk.zhanna@gmail.com"
-                    }
-                });
-                // Set the comments path for the Swagger JSON and UI.
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
-            });
+            services.AddApplicationInsightsTelemetry();
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", new Info
+            //    {
+            //        Title = "labnet",
+            //        Version = "v1",
+            //        Description = "Swagger example",
+            //        Contact = new Contact
+            //        {
+            //            Name = "Zhanna Solobchuk",
+            //            Email = "solobchuk.zhanna@gmail.com"
+            //        }
+            //    });
+            //    // Set the comments path for the Swagger JSON and UI.
+            //    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            //    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            //    c.IncludeXmlComments(xmlPath);
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,16 +84,16 @@ namespace labnet
 
 
             //Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
+            //app.UseSwagger();
          
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "labnet API v1");
+            //// Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            //// specifying the Swagger JSON endpoint.
+            //app.UseSwaggerUI(c =>
+            //{
+            //    c.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "labnet API v1");
                 
-            });
+            //});
 
 
             app.UseHttpsRedirection();

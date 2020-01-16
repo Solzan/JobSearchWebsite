@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace labnet.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class CompaniesController : Controller
     {
         private readonly DataContext _context;

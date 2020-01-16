@@ -15,7 +15,7 @@ namespace labnet.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
+                .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -32,8 +32,9 @@ namespace labnet.Migrations
                     b.ToTable("Companies");
 
                     b.HasData(
-                        new { Id = 1, Name = "Cytrus" },
-                        new { Id = 9, Name = "samsung" }
+                        new { Id = 12, Name = "Google" },
+                        new { Id = 13, Name = "Netflix" },
+                        new { Id = 14, Name = "Danone" }
                     );
                 });
 
@@ -95,6 +96,12 @@ namespace labnet.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("JobOfers");
+
+                    b.HasData(
+                        new { Id = 8, Company = "Sharlotta", EndDate = new DateTime(2020, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), JobDescription = "We are looking for cooker", JobTitle = "Cooker", Location = "Warszaw", SalaryFrom = 8000, SalaryTo = 10000, StartDate = new DateTime(2020, 1, 16, 1, 13, 35, 456, DateTimeKind.Local) },
+                        new { Id = 9, Company = "Netflix", EndDate = new DateTime(2020, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), JobDescription = "We are looking for Designer", JobTitle = "Designer", Location = "New York", SalaryFrom = 18000, SalaryTo = 20000, StartDate = new DateTime(2020, 1, 16, 1, 13, 35, 459, DateTimeKind.Local) },
+                        new { Id = 10, Company = "Netflix", EndDate = new DateTime(2020, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), JobDescription = "We are looking for manager", JobTitle = "Manager", Location = "New York", SalaryFrom = 16000, SalaryTo = 19000, StartDate = new DateTime(2020, 1, 16, 1, 13, 35, 459, DateTimeKind.Local) }
+                    );
                 });
 
             modelBuilder.Entity("labnet.Models.JobApplication", b =>

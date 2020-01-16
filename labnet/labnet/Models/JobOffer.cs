@@ -19,7 +19,6 @@ namespace labnet.Models
         public DateTime StartDate { set; get; }
 
         [DataType(DataType.Date)]
-        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyy-MM-dd}")]
         [Display(Name = "End Date")]
         public DateTime? EndDate { set; get; }
 

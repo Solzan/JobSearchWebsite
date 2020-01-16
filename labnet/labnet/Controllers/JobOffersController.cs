@@ -65,7 +65,7 @@ namespace labnet.Controllers
             {
                 Companies = await _context.Companies.ToListAsync()
             };
-
+           
             return View(model);
         }
         [Authorize]
@@ -86,8 +86,7 @@ namespace labnet.Controllers
                 model.Companies = await _context.Companies.ToListAsync();
                 return View(model);
             }
-          
-
+     
             if (!ModelState.IsValid)
             {
                 model.Companies = await _context.Companies.ToListAsync();
