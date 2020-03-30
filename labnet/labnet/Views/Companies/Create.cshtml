@@ -1,0 +1,80 @@
+﻿@model labnet.Models.Company
+
+@{
+    ViewData["Title"] = "Create";
+}
+<head>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.10/jquery.validate.unobtrusive.min.js"></script>
+
+    <style>
+        input.error {
+            border: 1px solid #ff0000;
+        }
+
+        label.error {
+            color: #ff0000;
+            font-weight: normal;
+        }
+    </style>
+</head>
+
+
+<h2>Create</h2>
+
+<h4>Company</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+
+        <form asp-action="Create" id="myform">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" @*name="companyNameField"*@ />
+                <span asp-validation-for="Name" class="text-danger"></span>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+          
+        </form>
+
+
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $('#myform').validate({
+            rules: {
+                Name: {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 20
+                }
+
+            },
+            messages: {
+                Name: {
+                     required: "Please, enter company name",
+                     minlength: "Your company name must consist of at least 2 characters"
+                }
+            }
+
+        });
+
+    });
+</script>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

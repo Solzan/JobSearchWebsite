@@ -1,0 +1,212 @@
+﻿@model labnet.Models.JobApplication
+
+@{
+    ViewData["Title"] = "Create";
+}
+<head>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.10/jquery.validate.unobtrusive.min.js"></script>
+
+    <style>
+        input.error {
+            border: 1px solid #ff0000;
+        }
+
+        label.error {
+            color: #ff0000;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<h2>Create</h2>
+
+<h4>JobApplication</h4>
+<hr />
+<div class="row page-box">
+    <div class="col-sm-12">
+        <form asp-action="Create" id="myform">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailAddress" class="control-label"></label>
+                <input asp-for="EmailAddress" class="form-control" />
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="ContactAgreement" /> @Html.DisplayNameFor(model => model.ContactAgreement)
+                    </label>
+                </div>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="CvUrl" class="control-label"></label>
+            <input asp-for="CvUrl" class="form-control" />
+            <span asp-validation-for="CvUrl" class="text-danger"></span>
+        </div>*@
+            <form action="BufferedSingleFileUploadPhysical/?handler=Upload"
+                  enctype="multipart/form-data" onsubmit="AJAXSubmit(this);return false;"
+                  method="post">
+
+
+                 <label asp-for="CvUrl" class="control-label"></label>
+                 <input asp-for="CvUrl" class="form-control" />
+
+
+                @*<dl>
+                    <dt>
+                        <label for="FileUpload_FormFile">File</label>
+                    </dt>
+                    <dd>
+                        <input id="FileUpload_FormFile" type="file"
+                               name="FileUpload.FormFile" />
+                    </dd>
+                </dl>*@
+
+                <input class="btn" type="submit" value="Upload" />
+
+                <div style="margin-top:15px">
+                    <output name="result"></output>
+                </div>
+            </form>
+
+            <script>
+                async function AJAXSubmit(oFormElement) {
+                    var resultElement = oFormElement.elements.namedItem("result");
+                    const formData = new FormData(oFormElement);
+
+                    try {
+                        const response = await fetch(oFormElement.action, {
+                            method: 'POST',
+                            body: formData
+                        });
+
+                        if (response.ok) {
+                            window.location.href = '/';
+                        }
+
+                        resultElement.value = 'Result: ' + response.status + ' ' +
+                            response.statusText;
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                }
+            </script>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+
+
+<script>
+    async function AJAXSubmit(oFormElement) {
+        var resultElement = oFormElement.elements.namedItem("result");
+        const formData = new FormData(oFormElement);
+
+        try {
+            const response = await fetch(oFormElement.action, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                window.location.href = '/';
+            }
+
+            resultElement.value = 'Result: ' + response.status + ' ' +
+                response.statusText;
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+</script>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script>
+    $(document).ready(function () {
+
+        $('#myform').validate({
+            rules: {
+                FirstName: {
+                    required: true,
+                    minlength: 2
+                },
+                LastName: {
+                    required: true,
+                    minlength: 2
+                },
+                PhoneNumber:
+                {
+                    required: true,
+                },
+                EmailAddress:
+                {
+                    required: true,
+                    email: true
+                },
+                ContactAgreement:
+                {
+                    required: true,
+
+                }
+
+
+            },
+            messages: {
+                FirstName: {
+                    required: "Please, enter your first name",
+                    minlength: "Your first name must consist of at least 2 characters"
+
+                },
+                LastName: {
+                    required: "Please, enter your last name",
+                    minlength: "Your last name must consist of at least 2 characters"
+                },
+                EmailAddress:
+                {
+                    required: "Please, enter your email address",
+                    email: "Please enter a valid email address"
+                },
+                PhoneNumber:
+                {
+                    required: "Please, enter your phone number"
+                },
+                ContactAgreement:
+                {
+                    required: "Please, agree on contact"
+
+                }
+            }
+
+        });
+
+    });
+</script>

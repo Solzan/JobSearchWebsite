@@ -1,0 +1,50 @@
+﻿@model IEnumerable<labnet.Models.Company>
+<head>
+    <script src="https://kit.fontawesome.com/0d382db8a4.js" crossorigin="anonymous"></script>
+</head>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+          
+            <th>
+
+                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+                @Html.DisplayFor(modelItem => item.Name)
+
+            </td>
+            <td>
+
+                <a asp-action="Edit" asp-route-id="@item.Id">
+                    <i class="fas fa-edit"
+                       title="Edit"></i>
+                </a>
+                <a asp-action="Details" asp-route-id="@item.Id"><button class="btn btn-rounded btn-primary mx-2">Details</button></a>|
+                <a asp-action="Delete" asp-route-id="@item.Id"><button class="btn btn-rounded btn-danger"> Delete</button> </a>
+
+            </td>
+
+
+</tr>
+
+}
+</tbody>
+</table>

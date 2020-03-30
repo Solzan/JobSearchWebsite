@@ -1,0 +1,107 @@
+﻿@model labnet.Models.JobOfferCreateView
+
+@{
+    ViewData["Title"] = "Create";
+}
+<head>
+    <script src="https://kit.fontawesome.com/0d382db8a4.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+</head>
+
+
+
+<div class="row page-box">
+    <div class="col-sm-12">
+        <h2>Now Job Offer</h2>
+        @using (Html.BeginForm("Create"))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                @Html.LabelFor(m => m.JobTitle)
+                @Html.EditorFor(m => m.JobTitle, new { htmlAttributes = new { @class = "form-control", data_bind = "value: jobTitle" } })
+                @Html.ValidationMessageFor(m => m.JobTitle, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Company)
+                @Html.DropDownListFor(m => m.Company,
+                    Model.Companies.Select(c => new SelectListItem {Text =c.Name, Value = c.Id.ToString() }),
+                    new { @class = "form-control", data_bind = "value: company" })
+                @Html.ValidationMessageFor(m => m.Company, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Location)
+                @Html.EditorFor(m => m.Location, new { htmlAttributes = new { @class = "form-control", data_bind = "value: location" } })
+                @Html.ValidationMessageFor(m => m.Location, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.SalaryFrom, "Salary From")
+                <div class="input-group">
+                    <span class="input-group-addon">PLN</span>
+                    @Html.EditorFor(m => m.SalaryFrom, new { htmlAttributes = new { @class = "form-control", placeholder = "From", data_bind = "value: salaryFrom" } })
+                    <span class="input-group-addon">.00</span>
+                </div>
+                @Html.ValidationMessageFor(m => m.SalaryFrom, " ", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.SalaryTo, "Salary To")
+                <div class="input-group">
+                    <span class="input-group-addon">PLN</span>
+                    @Html.EditorFor(m => m.SalaryTo, new { htmlAttributes = new { @class = "form-control", placeholder = "To", data_bind = "value: salaryTo" } })
+                    <span class="input-group-addon">.00</span>
+                </div>
+                @*@Html.ValidationMessageFor(m => m.SalaryTo, "", new { @class = "text-danger" })*@
+                @Html.ValidationMessage("SalaryTo", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.EndDate)
+                <div class="input-group">
+                    @Html.EditorFor(m => m.EndDate, new { htmlAttributes = new { @class = "form-control", type = "Date", data_bind = "value: endDate" } })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                @Html.ValidationMessage("End Date", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.JobDescription)
+                @Html.TextAreaFor(m => m.JobDescription, new { @class = "form-control", placeholder = "Enter description", data_bind = "value: jobDescription" })
+                @Html.ValidationMessageFor(m => m.JobDescription, "", new { @class = "text-danger" })
+            </div>
+
+            <div id="id1">
+                @Html.Partial("Partial")
+            </div>
+
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.4.0.js"></script>
+
+
+
+<script>
+    // Here's my data model
+    var ViewModel = function () {
+        this.jobTitle = ko.observable();
+        this.company = ko.observable();
+        this.location = ko.observable();
+        this.salaryFrom = ko.observable();
+        this.salaryTo = ko.observable();
+        this.endDate = ko.observable();
+        this.jobDescription = ko.observable();
+
+       
+    };
+
+    ko.applyBindings(new ViewModel()/*, document.getElementById('id1')*/); // This makes Knockout get to work
+</script>
+
+
+

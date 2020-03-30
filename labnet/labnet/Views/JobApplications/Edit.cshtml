@@ -1,0 +1,127 @@
+﻿@model labnet.Models.JobApplication
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<head>
+    <script src="https://kit.fontawesome.com/0d382db8a4.js" crossorigin="anonymous"></script>
+</head>
+<h2>Edit</h2>
+
+<h4>JobApplication</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group" type="hidden" >
+                @*<label type="hidden" asp-for="OfferId" class="control-label"></label>*@
+                <input  type="hidden"asp-for="OfferId" class="form-control" />
+                @*<span  type="hidden"asp-validation-for="OfferId" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailAddress" class="control-label"></label>
+                <input asp-for="EmailAddress" class="form-control" />
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="ContactAgreement" /> @Html.DisplayNameFor(model => model.ContactAgreement)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CvUrl" class="control-label"></label>
+                <input asp-for="CvUrl" class="form-control" />
+                <span asp-validation-for="CvUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index"><button class="btn btn-rounded">Back to List</button></a>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $('#myform').validate({
+            rules: {
+                FirstName: {
+                    required: true,
+                    minlength: 2
+                },
+                LastName: {
+                    required: true,
+                    minlength: 2
+                },
+                PhoneNumber:
+                {
+                    required: true,
+                },
+                EmailAddress:
+                {
+                    required: true,
+                    email: true
+                },
+                ContactAgreement:
+                {
+                    required: true,
+
+                }
+
+
+            },
+            messages: {
+                FirstName: {
+                    required: "Please, enter your first name",
+                    minlength: "Your first name must consist of at least 2 characters"
+
+                },
+                LastName: {
+                    required: "Please, enter your last name",
+                    minlength: "Your last name must consist of at least 2 characters"
+                },
+                EmailAddress:
+                {
+                    required: "Please, enter your email address",
+                    email: "Please enter a valid email address"
+                },
+                PhoneNumber:
+                {
+                    required: "Please, enter your phone number"
+                },
+                ContactAgreement:
+                {
+                    required: "Please, agree on contact"
+
+                }
+            }
+
+        });
+
+    });
+</script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

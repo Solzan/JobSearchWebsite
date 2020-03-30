@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>labnet</name>
+    </assembly>
+    <members>
+        <member name="T:labnet.Controllers.Application">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:labnet.Controllers.Application.#ctor(labnet.EntityFramework.DataContext)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:labnet.Controllers.Application.Get">
+            <summary>
+            Get all Applications from the DB
+            </summary>
+            <returns>All elements will be returned</returns>
+        </member>
+        <member name="M:labnet.Controllers.Application.Get(System.Int32)">
+            <summary>
+            Get one Application
+            </summary>
+            <remarks>Sample remarks for get one element</remarks>
+            <param name="id">Id of the element</param>
+            <returns></returns>
+        </member>
+        <member name="M:labnet.Controllers.Application.Post(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:labnet.Controllers.Application.Put(System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:labnet.Controllers.Application.Delete(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="T:labnet.Controllers.Job">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:labnet.Controllers.Job.#ctor(labnet.EntityFramework.DataContext)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:labnet.Controllers.Job.Get">
+            <summary>
+            Get all Jobs from the DB
+            </summary>
+            <returns>All elements will be returned</returns>
+        </member>
+        <member name="M:labnet.Controllers.Job.Get(System.Int32)">
+            <summary>
+            Get one jobOffer
+            </summary>
+            <remarks>Sample remarks for get one element</remarks>
+            <param name="id">Id of the element</param>
+            <returns></returns>
+        </member>
+        <member name="M:labnet.Controllers.Job.Post(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:labnet.Controllers.Job.Put(System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:labnet.Controllers.Job.Delete(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+        </member>
+    </members>
+</doc>

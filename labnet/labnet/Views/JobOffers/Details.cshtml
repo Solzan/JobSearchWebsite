@@ -1,0 +1,237 @@
+﻿@model Tuple<labnet.Models.JobOffer, List<labnet.Models.JobApplication>>
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+<head>
+    <script src="https://kit.fontawesome.com/0d382db8a4.js" crossorigin="anonymous"></script>
+</head>
+
+<h2>Details</h2>
+
+
+<div>
+    <h4>@Html.DisplayFor(model => model.Item1.JobTitle)</h4>
+    <hr />
+
+
+    <table cellspacing="0" cellpadding="5" id="DetailsId">
+        <tr>
+            <td valign="top" id="DescriptionId">
+                @Html.DisplayFor(model => model.Item1.JobDescription)
+            </td>
+            <td valign="top">
+                <dl class="dl-horizontal">
+                    <dt>
+                        Company
+                    </dt>
+                    <dd id="CompanyId">
+                        @Html.DisplayFor(model => model.Item1.Company)
+                    </dd>
+                    <dt>
+                        SalaryFrom
+                    </dt>
+                    <dd id="SalaryFromId">
+                        @Html.DisplayFor(model => model.Item1.SalaryFrom)
+                    </dd>
+                    <dt>
+                        SalaryTo
+                    </dt>
+                    <dd id="SalaryToId">
+                        @Html.DisplayFor(model => model.Item1.SalaryTo)
+                    </dd>
+                    <dt>
+                        StartDate
+                    </dt>
+                    <dd id="StartDateId">
+                        @*@Html.DisplayFor(model => model.Item1.StartDate.Date)*@
+                        @Convert.ToDateTime(Model.Item1.StartDate).ToString("dd.MM.yyy")
+                    </dd>
+                    <dt>
+                        EndDate
+                    </dt>
+                    <dd id="EndDateId">
+                        @*@Html.DisplayFor(model => model.Item1.EndDate)*@
+                        @Convert.ToDateTime(Model.Item1.EndDate).ToString("dd.MM.yyy")
+                    </dd>
+                    <dt>
+                        Location
+                    </dt>
+                    <dd id="LocationId">
+                        @Html.DisplayFor(model => model.Item1.Location)
+                    </dd>
+                </dl>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+
+@section Scripts{
+    <script>
+        var currentPage = 1;
+        $(document).ready(function () {
+            fetchData(1);
+        });
+        function fetchData(pageNo) {
+            var u = '../../api/Application/';
+            $.ajax({
+                url: u,
+                type: 'GET',
+                data: { pageNo: pageNo },
+                dataType: 'json',
+                success: function (data) {
+                    var $table = $('<table/>').addClass("table table-striped table-hover");
+                    var $header = $('<thead/>').html('<tr><th  scope="col" >Id</th><th  scope="col" >Name</th><th scope="col">Surname</th><th scope="col">PhoneNumber</th><th scope="col"> EmailAddress</th></th><th scope="col"> ContactAgreement</th></th><th scope="col">CvUrl</th></tr>');
+                    $table.append($header);
+                    $.each(data, function (i, emp) {
+                        if (emp.offerId ==@Html.DisplayFor(model => model.Item1.Id)) {
+                            var $row = $('<tr/>');
+                            $row.append($('<td/>').html(emp.id));
+                            $row.append($('<td/>').html(emp.firstName));
+                            $row.append($('<td/>').html(emp.lastName));
+                            $row.append($('<td/>').html(emp.phoneNumber));
+                            $row.append($('<td/>').html(emp.emailAddress));
+							$row.append($('<td/>').html(emp.contactAgreement));
+                            //$row.append($('<td/>').html(emp.cvUrl));
+                            $row.append("<td><a href=emp.cvUrl>emp.cvUrl</td>");
+                            $table.append($row);
+                        }
+                      
+                    });
+                    $('#updatePanel').html($table);
+                },
+                
+                error: function () {
+                    
+                    alert('Cannot display Job Applicztions. Please authorize and try again ');
+                }
+            });
+
+
+        };
+    </script>
+}
+
+
+
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Employee</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="font-weight-bold mb-0">Are you sure you want to delete this?</p>
+                <p class="text-danger mb-0"><small>This action cannot be undone.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-rounded" data-dismiss="modal">
+                    <i class="fas fa-chevron-left pr-2"></i>
+                    Cancel
+                </button>
+                @using (Html.BeginForm("Delete", "JobOffers", new { Model.Item1.Id }, FormMethod.Post, null, new { style = "display:inline;" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-rounded btn-danger">
+                        <i class="fas fa-trash-alt pr-2"></i>
+                        Delete
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Apply", "Create", "JobApplications", new { i = Model.Item1.Id }, new { @class = "btn btn-primary" })
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Item1.Id }, new { @class = "btn btn-primary" })*@
+    <a asp-action="Edit" asp-route-id="@Model.Item1.Id">
+        <button class="btn btn-rounded btn-primary mx-2">
+            <i class="fas fa-edit pr-2"></i>
+            Editttt
+        </button>
+    </a>
+    @*@Html.ActionLink("Delete", "Delete", new { id = Model.Item1.Id }, new { @class = "btn btn-primary" })*@
+
+    <button class="btn btn-rounded btn-danger mx-2"
+            data-toggle="modal"
+            data-target="#confirm-delete">
+        <i class="fas fa-trash-alt pr-2"></i>
+        Delete
+    </button>
+
+</div>
+
+
+@*<table class="table">
+    <thead>
+        <tr>
+            @if (Model.Item2.Count > 0)
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Item2[0].FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item2[0].LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item2[0].PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item2[0].EmailAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item2[0].ContactAgreement)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item2[0].CvUrl)
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody id="AplicationsId">*@
+@*@foreach (var item in Model.Item2)
+    {
+        <tr>
+            <td id="">
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactAgreement)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CvUrl)
+            </td>
+
+
+        </tr>
+    }*@
+@*</tbody>
+
+    </table>*@
+
+<div id="updatePanel">
+
+</div>
+
+
+<div>
+    @Html.ActionLink("Back", "Index", new { id = Model.Item1.Id }, new { @class = "btn btn-primary" })
+</div>
+
+
+
