@@ -1,20 +1,17 @@
 # Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+Job Search Website allow: 
+-add job position and preview result post during creating,
+-see all applications for job position,
+-open particular application to see details,
+-search application by name and id. 
+-add companies and apply for particular job position
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+Application written in C# using ASP.NET MVC, list of the job offers is loading asynchronously via API using AJAX. Data are stored in SQL database, communication between Web App and 
+SQL is done by Entity Framework. Form is validated on client and server site. Controller capturing data from form - data are correctly passed from View to Controller.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+- [link to website: https://jobportallabnet.azurewebsites.net/](https://jobportallabnet.azurewebsites.net/)
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
-
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+# Integration with Azure
+User Authentication is done with Azure AD B2C
+Website is stored on Azure Web App
+Database  stored on Azure SQL Database
