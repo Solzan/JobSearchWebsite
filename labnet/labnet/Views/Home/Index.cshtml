@@ -3,23 +3,30 @@
 }
 <head>
     <script src="https://kit.fontawesome.com/0d382db8a4.js" crossorigin="anonymous"></script>
+    <style>
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
-
-
+<div style="overflow: hidden;height: 250px;">
+    <div style="margin-top: -80px; margin-left: -75px;">
+        <img src="https://www.cv-library.co.uk/career-advice/wp-content/uploads/2018/06/What-is-it-like-working-in-IT.jpg">
+    </div>
+</div>
 
 <div>
     <div class="row">
-
         <div class="col-lg-4">
             <div>
                 <h2>
-                    Job offers
+                    Find your perfect offer
                     <span class="badge badge-pill badge-primary align-top" id="modelCount">
                         @*@Model.Count()*@
                     </span>
                 </h2>
             </div>
-
         </div>
         <div class="col-lg-4">
             <h2> </h2>
@@ -30,7 +37,6 @@
                     Add Job Offer
                 </button>
             </a>
-
         </div>
         <div class="col-lg-2">
             <h2> </h2>
@@ -42,17 +48,15 @@
             <h2> </h2>
             <div class="row">
                 <input type="button" class="btn btn-rounded btn-outline-primary" value="Search" onclick="find();" />
-              
+
             </div>
         </div>
-
     </div>
-    
+
     <div id="updatePanel">
         <table class="table table-striped table-hover" id="mytable"></table>
     </div>
 
-  
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script>
         var uri = 'api/Job';
@@ -60,7 +64,7 @@
 
         var currentPage = 1;
         $(document).ready(function () {
-           // loadAllData();
+            // loadAllData();
             fetchData(1);
         });
         function fetchData(pageNo) {
@@ -77,9 +81,9 @@
                     $("#mytable").empty();
                     var $head = $('<thead>').html('<tr><th scope = "col" >Job Title</th ><th scope="col">Company</th><th scope="col">Location</th><th scope="col">StartDate</th><th style="width: 50px"></th></tr >');
                     var $bd = $('<tbody>').html('');
-                    $bd.attr('id','jobs')
+                    $bd.attr('id', 'jobs')
                     $.each(data, function (i, emp) {
-                        
+
                         $bd.append(formatItem(emp));
                         c += 1;
                     });
@@ -87,43 +91,22 @@
                     $("#modelCount").append(c);
                     $("#mytable").append($head);
                     $("#mytable").append($bd);
-                    
+
                 },
                 error: function () {
                     alert('Error! Please try again.');
                 }
             }).done(function () {
                 $("#load").empty();
-               
+
             });
         }
 
 
-
-        //$(document).ready(function () {
-        //    loadAllData();
-
-        //})
         var c = 0;
-
-        //function loadAllData() {
-        //    $.getJSON(uri)
-        //        .done(function (data) {
-        //            // On success, 'data' contains a list of jobs.
-        //            c = 0;
-        //            $.each(data, function (key, item) {
-        //                $("#jobs").append(formatItem(item));
-        //                c += 1;
-        //            });
-        //            $("#modelCount").append(c);
-        //        });
-        //    return;
-        //}
-
-
         function formatItem(item) {
             if (item.id === undefined)
-            return "";
+                return "";
             var d = new Date(item.startDate);
             var i = item.id;
 
@@ -133,7 +116,7 @@
 
         function find() {
             $('#jobs').empty()
-            
+
             var id = $('#jobId').val();
             if (id === "") {
                 c = 0;
@@ -151,6 +134,5 @@
                 });
         }
     </script>
-
 </div>
 
