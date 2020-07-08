@@ -1,5 +1,5 @@
 link to website:[<span style="color:blue"> https://jobportallabnet.azurewebsites.net/</span>](https://jobportallabnet.azurewebsites.net/)<br/>
-Code is stored in Repos folder ;)
+
 
 # Introduction 
 Job Search Website allow: <br/>
