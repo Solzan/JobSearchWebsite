@@ -1,3 +1,8 @@
+Application allow add job position, see all applications for job position,
+open particular application to see details, search application. List of the job
+offers is loading asynchronously via API using AJAX. Data are stored in SQL
+database, communication between Web App and SQL is done by Entity
+Framework.
 link to website:[<span style="color:blue"> https://jobportallabnet.azurewebsites.net/</span>](https://jobportallabnet.azurewebsites.net/)<br/>
 
 
